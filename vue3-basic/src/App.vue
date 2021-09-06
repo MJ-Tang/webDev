@@ -6,12 +6,18 @@
         <li v-for='n in number' :key="n">{{n}}</li>
     </ul>
     <h1>{{person.name}}</h1>
+    <h1>{{greetings}}</h1>
+    <h1>x: {{x}}</h1>
+    <h1>y: {{y}}</h1>
     <button @click="increase">+1</button>
+
+    <button @click="updateGreeting">update Title</button>
 </template>
 
 <script lang="ts">
 
-import { ref,computed,reactive, toRefs } from 'vue'
+import { ref,computed,reactive, toRefs, onMounted, onUnmounted, onUpdated, onRenderTracked, watch } from 'vue'
+import useMounsePositon from './hooks/useMounsePostion'
 
 interface DataProps {
     count: number;
@@ -34,6 +40,30 @@ export default ({
         // const increase = () => {
         //     count.value++
         // }
+        const greetings = ref('')
+        const {x,y} = useMounsePositon()
+        
+        const updateGreeting = () => {
+            greetings.value += 'Hello!'
+        }
+
+        watch(greetings, () => {
+            document.title = 'update' + greetings.value
+        })
+
+        onRenderTracked((e) => {
+            console.log(e);
+            
+        })
+
+        // onMounted(() => {
+        //     console.log('mounted'); 
+        // })
+
+        // onUpdated(() => {
+        //     console.log('updated');  
+            
+        // })
 
         const data: DataProps = reactive ({
             count: 0,
@@ -47,7 +77,11 @@ export default ({
         data.person.name = 'Michael'
         const refData = toRefs(data)
         return {
-            ...refData
+            greetings,
+            updateGreeting,
+            ...refData,
+            x,
+            y
         }
     }
 
