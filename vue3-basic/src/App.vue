@@ -10,14 +10,17 @@
     <h1>x: {{x}}</h1>
     <h1>y: {{y}}</h1>
     <button @click="increase">+1</button>
-
     <button @click="updateGreeting">update Title</button>
+
+    <h1 v-if="loading">loading ...</h1>
+    <img v-if='loaded' :src="result.message" >
 </template>
 
 <script lang="ts">
 
 import { ref,computed,reactive, toRefs, onMounted, onUnmounted, onUpdated, onRenderTracked, watch } from 'vue'
 import useMounsePositon from './hooks/useMounsePostion'
+import useURLLoader from './hooks/useURLLoader'
 
 interface DataProps {
     count: number;
@@ -42,7 +45,9 @@ export default ({
         // }
         const greetings = ref('')
         const {x,y} = useMounsePositon()
-        
+        const { result, loading, loaded} = useURLLoader('https://dog.ceo/api/breeds/image/random')
+
+
         const updateGreeting = () => {
             greetings.value += 'Hello!'
         }
@@ -81,7 +86,10 @@ export default ({
             updateGreeting,
             ...refData,
             x,
-            y
+            y,
+            result,
+            loading,
+            loaded,
         }
     }
 
@@ -90,11 +98,11 @@ export default ({
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
 }
 </style>
