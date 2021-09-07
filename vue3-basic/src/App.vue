@@ -9,7 +9,8 @@
     <h1>{{greetings}}</h1>
     <h1>x: {{x}}</h1>
     <h1>y: {{y}}</h1>
-    <Modal></Modal>
+    <button @click="openModal">Open Modal</button>
+    <Modal :isOpen = 'modalIsOpen' @close-modal = 'onModalClose'>My Model!!</Modal>
     <button @click="increase">+1</button>
     <button @click="updateGreeting">update Title</button>
 
@@ -65,6 +66,14 @@ export default ({
         const updateGreeting = () => {
             greetings.value += 'Hello!'
         }
+        const modalIsOpen = ref(false)
+        const openModal = () => {
+            modalIsOpen.value = true
+        }
+        const onModalClose = () => {
+            modalIsOpen.value = false
+        }
+
 
         watch(result, () => {
             // document.title = 'update' + greetings.value
@@ -109,6 +118,9 @@ export default ({
             result,
             loading,
             loaded,
+            modalIsOpen,
+            openModal,
+            onModalClose
         }
     }
 
