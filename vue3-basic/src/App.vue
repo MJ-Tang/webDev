@@ -2,6 +2,17 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <h1>{{count}}</h1>
     <h1>{{double}}</h1>
+    <p>{{error}}</p>
+    <Suspense>
+        <template #default>
+            <asyncShow />
+            <dogShow />
+        </template>
+        <template #fallback>
+            <h1>loading...</h1>
+        </template>
+    </Suspense>
+
     <ul>
         <li v-for='n in number' :key="n">{{n}}</li>
     </ul>
@@ -20,10 +31,12 @@
 
 <script lang="ts">
 
-import { ref,computed,reactive, toRefs, onMounted, onUnmounted, onUpdated, onRenderTracked, watch } from 'vue'
+import { ref,computed,reactive, toRefs, onMounted, onUnmounted, onUpdated, onRenderTracked, watch, onErrorCaptured } from 'vue'
 import useMounsePositon from './hooks/useMounsePostion'
 import useURLLoader from './hooks/useURLLoader'
-import Modal from './components/Model.vue';
+import Modal from './components/Model.vue'
+import asyncShow from './components/asyncShow.vue'
+import dogShow from './components/dogShow.vue'
 
 interface DataProps {
     count: number;
@@ -48,7 +61,9 @@ interface catResult{
 export default ({
     name: 'App',
     components: {
-        Modal
+        Modal,
+        asyncShow,
+        dogShow
     },
     setup() {
         // const count = ref(0)
@@ -58,6 +73,12 @@ export default ({
         // const increase = () => {
         //     count.value++
         // }
+        const error = ref(null)
+        onErrorCaptured((e:any) => {
+            error.value = e
+            return true
+        })
+
         const greetings = ref('')
         const {x,y} = useMounsePositon()
         const { result, loading, loaded} = useURLLoader<catResult[]>('https://api.thecatapi.com/v1/images/search')
@@ -120,7 +141,8 @@ export default ({
             loaded,
             modalIsOpen,
             openModal,
-            onModalClose
+            onModalClose,
+            error
         }
     }
 
