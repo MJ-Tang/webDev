@@ -1,27 +1,42 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <div class="container">
+        <column-list :list='list'></column-list>
+    </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import columnList, { columnProps } from './components/columnList.vue'
+
+const testData: columnProps[] = [
+  {
+    id: 1,
+    title: 'test1',
+    description: '这是test专栏，有一段非常有意思的简介，可以更新一下',
+    avatar: 'https://images.unsplash.com/photo-1593642532744-d377ab507dc8?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3450&q=80'
+  },
+  {
+    id: 2,
+    title: 'test1',
+    description: '这是test专栏，有一段非常有意思的简介，可以更新一下',
+    avatar: 'https://images.unsplash.com/photo-1593642532744-d377ab507dc8?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3450&q=80'
+  }
+]
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    columnList
+  },
+  setup () {
+    return {
+      list: testData
+    }
   }
 })
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>

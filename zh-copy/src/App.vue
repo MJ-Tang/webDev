@@ -1,12 +1,29 @@
 <template>
     <div class="container">
         <globalHeader :user='currentUser'></globalHeader>
-        <column-list :list='list'></column-list>
+        <!-- <column-list :list='list'></column-list> -->
+        <form action="">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input 
+                    type="email" class='form-control' id="exampleInputEmail1"
+                    v-model='emailRef.val'
+                    @blur="validateEmail"
+                >
+                <div class="form-text" v-if="emailRef.error">{{emailRef.message}}</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">pross words</label>
+                <input type="email" class='form-control' id="exampleInputEmail1">
+            </div>
+            
+        </form>
+
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import columnList, { columnProps } from './components/columnList.vue'
 import globalHeader, {userProps} from './components/globalHeader.vue'
@@ -43,16 +60,31 @@ const testData: columnProps[] = [
     }
 ]
 
+// const emailReg = /
+
 export default defineComponent({
     name: 'App',
     components: {
-        columnList,
+        // columnList,
         globalHeader
     },
     setup () {
+        const emailRef = reactive({
+            val: '',
+            error: false,
+            message: ''
+        })
+        const validateEmail = () => {
+            if (emailRef.val.trim() === '') {
+                emailRef.error = true
+                emailRef.message = 'can not be empty'
+            }
+        }
         return {
         list: testData,
-        currentUser
+        currentUser,
+        emailRef,
+        validateEmail
         }
     }
 })
