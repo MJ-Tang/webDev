@@ -2,22 +2,7 @@
     <div class="container">
         <globalHeader :user='currentUser'></globalHeader>
         <!-- <column-list :list='list'></column-list> -->
-        <form action="">
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input 
-                    type="email" class='form-control' id="exampleInputEmail1"
-                    v-model='emailRef.val'
-                    @blur="validateEmail"
-                >
-                <div class="form-text" v-if="emailRef.error">{{emailRef.message}}</div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">pross words</label>
-                <input type="email" class='form-control' id="exampleInputEmail1">
-            </div>
-            
-        </form>
+        <validateInput></validateInput>
 
     </div>
 </template>
@@ -27,6 +12,8 @@ import { defineComponent, reactive } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import columnList, { columnProps } from './components/columnList.vue'
 import globalHeader, {userProps} from './components/globalHeader.vue'
+import validateInput { rulesProp } from './components/validateInput.vue'
+
 
 
 const currentUser: userProps = {
@@ -66,9 +53,14 @@ export default defineComponent({
     name: 'App',
     components: {
         // columnList,
-        globalHeader
+        globalHeader,
+        validateInput
     },
     setup () {
+        const emailRules: rulesProp = [
+            {type: 'required', message: 'email address can not be empty'},
+            {type: 'email', message: 'please enter the real email address'},
+        ]
         const emailRef = reactive({
             val: '',
             error: false,
@@ -84,7 +76,8 @@ export default defineComponent({
         list: testData,
         currentUser,
         emailRef,
-        validateEmail
+        validateEmail,
+        emailRules
         }
     }
 })
