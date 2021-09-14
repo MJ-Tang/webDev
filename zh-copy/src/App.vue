@@ -2,17 +2,23 @@
     <div class="container">
         <globalHeader :user='currentUser'></globalHeader>
         <!-- <column-list :list='list'></column-list> -->
-        <validateInput></validateInput>
+        <form action="">
+            <div class="mb-3">
+                <label for="form-label">email address</label>
+                <validateInput :rules="emailRules" v-model='emailVal'></validateInput>
+                {{emailVal}}
+            </div>
+        </form>
 
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import columnList, { columnProps } from './components/columnList.vue'
 import globalHeader, {userProps} from './components/globalHeader.vue'
-import validateInput { rulesProp } from './components/validateInput.vue'
+import validateInput, { rulesProp } from './components/validateInput.vue'
 
 
 
@@ -57,6 +63,8 @@ export default defineComponent({
         validateInput
     },
     setup () {
+        const emailVal = ref('Michale')
+
         const emailRules: rulesProp = [
             {type: 'required', message: 'email address can not be empty'},
             {type: 'email', message: 'please enter the real email address'},
@@ -77,7 +85,8 @@ export default defineComponent({
         currentUser,
         emailRef,
         validateEmail,
-        emailRules
+        emailRules,
+        emailVal
         }
     }
 })

@@ -29,7 +29,7 @@ export default defineComponent({
     props: {
         list: {
         type: Array as PropType<columnProps[]>,
-        required: true
+        required: true,
         }
     },
     setup (props) {
