@@ -2,13 +2,32 @@
     <div class="container">
         <globalHeader :user='currentUser'></globalHeader>
         <!-- <column-list :list='list'></column-list> -->
-        <form action="">
+        <validate-form @form-submit="onFormSumbit">
             <div class="mb-3">
                 <label for="form-label">email address</label>
-                <validateInput :rules="emailRules" v-model='emailVal'></validateInput>
+                <validateInput 
+                    :rules="emailRules" 
+                    v-model='emailVal'
+                    placeholder='enter emairl address'
+                    type='text'
+                    ref="inputRef"
+                ></validateInput>
                 {{emailVal}}
             </div>
-        </form>
+            <div class="mb-3">
+                <label for="form-label">pass words</label>
+                <validateInput 
+                    :rules="passwordRules" 
+                    v-model='passwordVal'
+                    placeholder='enter emairl address'
+                    type='password'
+                ></validateInput>
+                {{emailVal}}
+            </div>
+            <template #submit >
+                <span class="btn btn-danger">submit</span>
+            </template>
+        </validate-form>
 
     </div>
 </template>
@@ -19,6 +38,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import columnList, { columnProps } from './components/columnList.vue'
 import globalHeader, {userProps} from './components/globalHeader.vue'
 import validateInput, { rulesProp } from './components/validateInput.vue'
+import validateForm from './components/validateFrom.vue'
 
 
 
@@ -60,10 +80,13 @@ export default defineComponent({
     components: {
         // columnList,
         globalHeader,
-        validateInput
+        validateInput,
+        validateForm
     },
     setup () {
         const emailVal = ref('Michale')
+
+        const inputRef = ref<any>()
 
         const emailRules: rulesProp = [
             {type: 'required', message: 'email address can not be empty'},
@@ -80,13 +103,20 @@ export default defineComponent({
                 emailRef.message = 'can not be empty'
             }
         }
+
+        const onFormSumbit = (result:boolean) => {
+            console.log('result',inputRef.value.validateInput());
+            
+        }
         return {
         list: testData,
         currentUser,
         emailRef,
         validateEmail,
         emailRules,
-        emailVal
+        emailVal,
+        onFormSumbit,
+        inputRef
         }
     }
 })
