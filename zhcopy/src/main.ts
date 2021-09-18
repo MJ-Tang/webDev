@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import home from './views/home.vue'
 import login from './views/login.vue'
+import columnDetail from './views/columnDetail.vue'
 import App from './App.vue'
 
 const routerHistory = createWebHistory()
@@ -18,6 +19,11 @@ const router = createRouter ({
             name: 'login',
             component: login
         },
+        {
+            path: '/cd/:id',
+            name: 'cd',
+            component: columnDetail
+        }
     ]
 })
 

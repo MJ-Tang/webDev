@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import ValidateInput, { rulesProp } from '../components/validateInput.vue'
 import ValidateForm from '../components/validateFrom.vue'
 
@@ -36,6 +37,10 @@ export default defineComponent({
   },
   setup() {
     const emailVal = ref('')
+
+    const router = useRouter()
+
+
     const emailRules: rulesProp = [
       { type: 'required', message: '电子邮箱地址不能为空' },
       { type: 'email', message: '请输入正确的电子邮箱格式' }
@@ -46,6 +51,12 @@ export default defineComponent({
     ]
     const onFormSubmit = (result: boolean) => {
       console.log('result', result)
+      if(result) {
+          router.push({
+              name: 'cd',
+              params: {id:1}
+          })
+      }
     }
     return {
       emailRules,

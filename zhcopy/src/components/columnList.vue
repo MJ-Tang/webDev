@@ -7,7 +7,11 @@
                     <img :src="i.avatar" :alt="i.title" class="rounded-circle border-light w-25 my-3">    
                     <h5 class="card-title">{{i.title}}</h5>
                     <p class="card-text text-left">{{i.description}}</p>
-                    <a href="#" class="btn btn-outline-primary">进入专栏</a>
+                    <h2>{{ i.id }}</h2>
+                    <router-link 
+                        :to="`/cd/${i.id}`" 
+                        class="btn btn-outline-primary"
+                    >进入专栏</router-link>
                 </div>
             </div>
         </div>
