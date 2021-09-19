@@ -14,6 +14,13 @@
     <h4 class="font-weight-bold text-center">发现精彩</h4>
     <column-list :list="list"></column-list>
   </div>
+  <div>
+      <div>
+          <div>
+              
+          </div>
+      </div>
+  </div>
 </template>
 
 <script lang="ts">
