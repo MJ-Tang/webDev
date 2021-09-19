@@ -1,9 +1,18 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { createStore } from 'vuex'
 import home from './views/home.vue'
 import login from './views/login.vue'
 import columnDetail from './views/columnDetail.vue'
 import App from './App.vue'
+
+
+const store = createStore({
+    state:{
+        count: 0
+    }
+})
+console.log('store', store.state.count);
 
 const routerHistory = createWebHistory()
 const router = createRouter ({
