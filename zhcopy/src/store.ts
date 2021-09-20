@@ -23,6 +23,11 @@ const store = createStore<goldalDataProps>({
         login(state) {
             state.user = { ...state.user, isLoging: true, name: 'Michael' }
             }
+    },
+    getters: {
+        biggerColuLen (state) {
+            return state.columns.filter(c => c.id > 2).length
+        }
     }
 })
 

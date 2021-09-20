@@ -1,4 +1,5 @@
 <template>
+    <h2>{{biggerColuLen}}</h2>
     <div class="home-page">
         <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -38,10 +39,11 @@ export default defineComponent({
     setup() {
         const store = useStore<goldalDataProps>()
         const list = computed(() => store.state.columns)
-
+        const biggerColuLen = computed(() => store.getters.biggerColuLen)
         return {
 
-        list
+        list,
+        biggerColuLen
         }
     }
 })
