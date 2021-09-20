@@ -6,19 +6,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, reactive, ref, computed } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
+import { useStore } from 'vuex'
 import globalHeader, {userProps} from './components/globalHeader.vue'
 
 
 
 
 
-const currentUser: userProps = {
-    isLoging: false,
-    name: 'Michael'
-}
+
 
 
 export default defineComponent({
@@ -28,6 +25,8 @@ export default defineComponent({
         globalHeader,
     },
     setup () {
+        const store = useStore()
+        const currentUser = computed(() => store.state.user)
         return {
         currentUser,
         }
