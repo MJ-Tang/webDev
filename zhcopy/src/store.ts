@@ -27,6 +27,12 @@ const store = createStore<goldalDataProps>({
     getters: {
         biggerColuLen (state) {
             return state.columns.filter(c => c.id > 2).length
+        },
+        getColuId: (state) => (id: number) => {
+            return state.columns.find(c => c.id === id)
+        },
+        getPostCid: (state) => (cid: number) => {
+            return state.posts.filter(post => post.columnId === cid)
         }
     }
 })
