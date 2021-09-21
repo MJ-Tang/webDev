@@ -12,7 +12,7 @@
         <ul v-else class="list-inline mb-0">
             <li class="list-inline-item">
                 <dropdown :title="`hello ${user.name}`">
-                    <dropdownItem><a href="#" class="dropdown-itme">create article</a></dropdownItem>
+                    <dropdown-item><router-link to="/create" class="dropdown-item">create article</router-link></dropdown-item>
                     <dropdownItem disabled ><a href="#" class="dropdown-itme">edit article</a></dropdownItem>
                     <dropdownItem><a href="#" class="dropdown-itme">log out</a></dropdownItem>
                 </dropdown>
