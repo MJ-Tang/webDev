@@ -27,6 +27,8 @@ export default defineComponent({
     setup () {
         const store = useStore()
         const currentUser = computed(() => store.state.user)
+        console.log(currentUser);
+        
         return {
         currentUser,
         }

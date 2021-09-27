@@ -45,7 +45,9 @@ export default defineComponent({
         }
     },
 
-    setup() {
+    setup(props) {
+        console.log(props.user.name);
+        
         return
     },
 })
