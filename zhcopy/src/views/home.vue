@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { goldalDataProps } from '../store'
 import { testData } from '../testData'
@@ -39,6 +39,12 @@ export default defineComponent({
     setup() {
         const store = useStore<goldalDataProps>()
         const list = computed(() => store.state.columns)
+
+        onMounted(() => {
+            store.dispatch('fetchColumns')
+        })
+
+
         const biggerColuLen = computed(() => store.getters.biggerColuLen)
         return {
 

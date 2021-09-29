@@ -1,12 +1,27 @@
 import { createStore } from "vuex";
 import{ testData, testPosts, ColumnProps, PostProps } from './testData'
 export { ColumnProps, PostProps } from './testData'
+import axios from 'axios'
 
 interface userProps {
     isLoging: boolean;
     name?: string;
     id?: number;
     columnId?: number
+}
+
+interface imageProps {
+    _id?: string;
+    url?: string;
+    createAt?: string; 
+
+}
+
+export interface columnProps {
+    id:number;
+    title:string;
+    avatar?:imageProps;
+    description:string;
 }
 
 export interface goldalDataProps {
@@ -27,8 +42,19 @@ const store = createStore<goldalDataProps>({
         },
         createPost(state, newPost) {
             state.posts.push(newPost)
+        },
+        fetchColumns(state, rawData) {
+            state.columns = rawData.data.list
         }
     },
+    actions: {
+        fetchColumns(context) {
+            axios.get('/columns').then(resp => {
+                context.commit('fetchColumns', resp.data)
+            })
+        }
+    },
+
     getters: {
         biggerColuLen (state) {
             return state.columns.filter(c => c.id > 2).length
