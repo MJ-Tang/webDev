@@ -2,6 +2,11 @@ body{
     background-color: #000;
     height: 1vh;
 }
+.dF{
+    display: flex;
+    justify-content: center;
+}
+
 
 .buttonWrapper{
     /* display: flex; */
@@ -11,7 +16,7 @@ body{
 }
 
 .buttonWrapper button{
-    border: 1px solid #ff9800;
+    border: 1px solid hsl(36, 100%, 50%);
     font-size: 25px;
     background-color: transparent;
     color: #ff9800;

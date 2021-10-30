@@ -18,7 +18,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script lang="ts"> 
 import { computed, defineComponent, PropType } from 'vue'
 import { columnProps } from '../store'
 

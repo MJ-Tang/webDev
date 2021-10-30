@@ -100,7 +100,6 @@ export default ({
             // document.title = 'update' + greetings.value
             if (result.value) {
                 console.log('value', result.value[0].url);
-                
             }
             
         })
